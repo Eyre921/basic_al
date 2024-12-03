@@ -1,0 +1,18 @@
+# ninja log v6
+3	1601	7548950304339796	CMakeFiles/basic_al.dir/main.cpp.obj	c37bb42c1a8c00d3
+1602	1665	7548950320329390	basic_al.exe	bb1348af1225cdc3
+8	343	7543368520013974	CMakeFiles/basic_al.dir/1.1_quick_sort.cpp.obj	c46ab645140506ac
+5	1728	7548951233561870	CMakeFiles/basic_al.dir/main.cpp.obj	c37bb42c1a8c00d3
+1729	1789	7548951250792475	basic_al.exe	bb1348af1225cdc3
+4	1827	7548953175190055	CMakeFiles/basic_al.dir/main.cpp.obj	c37bb42c1a8c00d3
+1827	1908	7548953193424344	basic_al.exe	bb1348af1225cdc3
+4	1794	7548953385622555	CMakeFiles/basic_al.dir/main.cpp.obj	c37bb42c1a8c00d3
+1795	1864	7548953403518862	basic_al.exe	bb1348af1225cdc3
+4	1637	7548953761840782	CMakeFiles/basic_al.dir/main.cpp.obj	c37bb42c1a8c00d3
+1637	1703	7548953778172727	basic_al.exe	bb1348af1225cdc3
+4	1675	7548954639604281	CMakeFiles/basic_al.dir/main.cpp.obj	c37bb42c1a8c00d3
+1676	1741	7548954656327890	basic_al.exe	bb1348af1225cdc3
+4	1815	7548954891308429	CMakeFiles/basic_al.dir/main.cpp.obj	c37bb42c1a8c00d3
+1815	1883	7548954909420614	basic_al.exe	bb1348af1225cdc3
+4	1627	7548956683279517	CMakeFiles/basic_al.dir/main.cpp.obj	c37bb42c1a8c00d3
+1627	1696	7548956699511706	basic_al.exe	bb1348af1225cdc3
