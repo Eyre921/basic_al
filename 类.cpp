@@ -20,10 +20,12 @@ void Rational::show() {
 void Rational::set() {
 	cin >> fz >> fm;
 }
+//创建对象
 Rational::Rational()
 {
 	fm = 1, fz = 0;
 }
+
 
 //创建对象，测试功能
 int main() {

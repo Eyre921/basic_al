@@ -73,7 +73,6 @@ void dfs(int x, int sum) //x表示当前位置
      for (int i = 1; i <= 3; i++)
      {
           arr[x] = i;
-
           dfs(x + 1, sum + i); //遍历下一个位置
           arr[x] = 0;
      }
