@@ -1,35 +1,56 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int N = 10;
-int n, k;
+const int N = 30;
+int n;
 //int arr[N];
 int res = 0;
+int used[N];
+int g[N][N]; //记录单词i和单词j能不能连上，值为重合部分的长度
+string words[N];
 
-void dfs(int x, int sum, int start)
+void dfs(string dragon, int x)
 {
-    if (sum > n) return;
-    if (x > k)
+    res = max(res, (int) dragon.size());
+    used[x]++;
+    for (int i = 0; i < n; i++)
     {
-        if (n == sum)
+        if (g[x][i] && used[i] < 2)
         {
-            res++;
-            //for (int i = 1; i <= k; i++) cout << arr[i] << " ";
-            //cout << endl;
+            dfs(dragon + words[i].substr(g[x][i]), i);
         }
-        return;
     }
-    for (int i = start; sum + (k - x + 1) * i <= n; i++)
-    {
-        //arr[x] = i;
-        dfs(x + 1, sum + i, i);
-        //arr[x] = 0;
-    }
+    used[x]--;
 }
 
 int main()
 {
-    cin >> n >> k;
-    dfs(1, 0, 1);
-    cout << res;
+    cin >> n;
+    for (int i = 0; i < n; i++) cin >> words[i];
+    char start;
+    cin >> start;
+    // 预处理，看看哪些单词可能链上
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+        {
+            string a = words[i], b = words[j];
+            for (int k = 1; k < min(a.size(), b.size()); k++)
+            {
+                if (a.substr(a.size() - k, k) == b.substr(0, k))
+                {
+                    g[i][j] = k;
+                    break;
+                }
+            }
+        }
+    for (int i = 0; i < n; i++) //遍历每个可能是第一个单词的元素
+    {
+        if (words[i][0] == start)
+        {
+            dfs(words[i], i); //i记录当前是第几个单词
+        }
+    }
+    cout << res << endl;
 }
+
+

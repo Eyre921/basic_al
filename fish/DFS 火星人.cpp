@@ -1,5 +1,63 @@
 #include <bits/stdc++.h>
 using namespace std;
+
+int n, m;  // n为火星人的手指数目，m为要加的整数
+const int N = 1e5 + 10;  // 定义一个足够大的常数N，存储手指排列及其他状态
+int arr[N], mars[N];  // arr[] 存储当前的排列，mars[] 存储火星人手指的排列顺序
+bool st[N];  // st[] 标记某个位置是否已经被访问过，用于DFS
+int res = 0;  // 记录当前已经找到的排列数量
+bool alfind = false;  // 标志是否已经找到了第 m+1 个排列
+
+// 深度优先搜索函数，x为当前递归的层次
+void dfs(int x)
+{
+    if (alfind) return;  // 如果已经找到了第m+1个排列，则停止递归
+
+    if (x > n)  // 当递归的层数超过了n，说明当前排列已经完整
+    {
+        res++;  // 增加当前排列数量
+        if (res == m + 1)  // 如果达到了目标排列数量m+1
+        {
+            alfind = true;  // 标记已经找到了
+            for (int i = 1; i <= n; i++)  // 输出当前排列
+                cout << arr[i] << " ";
+        }
+        return;
+    }
+
+    // 递归生成下一个排列
+    for (int i = 1; i <= n; i++)  // 遍历可能的手指位置
+    {
+        if (!res)  // 这里有点奇怪的逻辑，可能是为了优化递归的顺序
+        {
+            i = mars[x];  // 这行的作用不清晰，可能是一个错误的处理逻辑
+        }
+
+        if (!st[i])  // 如果当前位置还没有被访问过
+        {
+            st[i] = true;  // 标记当前位置为已访问
+            arr[x] = i;  // 记录当前的手指位置
+            dfs(x + 1);  // 递归处理下一个手指位置
+            st[i] = false;  // 回溯，取消访问标记
+            arr[x] = -1;  // 清除当前位置
+        }
+    }
+}
+
+int main()
+{
+    scanf("%d %d", &n, &m);  // 输入火星人手指的数目n和要加的小整数m
+    for (int i = 1; i <= n; i++) scanf("%d", &mars[i]);  // 输入火星人手指的排列顺序
+
+    dfs(1);  // 从第1个手指开始递归
+
+    // 程序结束时如果没有找到第m+1个排列则不会输出
+}
+
+/*
+#include <bits/stdc++.h>
+
+using namespace std;
 int n, m;
 const int N = 1e5 + 10;
 int arr[N], mars[N];
@@ -43,7 +101,7 @@ int main()
     for (int i = 1; i <= n; i++) scanf("%d", &mars[i]);
     dfs(1);
 }
-
+*/
 /*
 # [NOIP2004 普及组] 火星人
 

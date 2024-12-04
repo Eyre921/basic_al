@@ -1,3 +1,103 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int n, res = 0;  // n表示美味程度，res用于统计方案数
+int arr[12];  // 存储配料的质量方案
+int out[52000][10];  // 存储所有符合条件的配料方案
+
+// 深度优先搜索函数，x表示当前配料位置，sum表示当前累计的总和
+void dfs(int x, int sum)
+{
+     if (sum > n) return;  // 如果总和超过n，返回
+     if (x > 10)  // 如果已经遍历了所有10个配料
+     {
+          if (sum == n)  // 如果总和等于n
+          {
+               res++;  // 增加方案数
+               for (int i = 1; i <= 10; i++)
+                    out[res][i] = arr[i];  // 保存该方案
+          }
+          return;
+     }
+     for (int i = 1; i <= 3; i++)  // 对每个配料，选择1、2、3克
+     {
+          arr[x] = i;  // 设定当前配料的质量
+          dfs(x + 1, sum + i);  // 递归处理下一个配料
+          arr[x] = 0;  // 回溯，清空当前配料质量
+     }
+}
+
+int main()
+{
+     cin >> n;  // 输入美味程度n
+
+     // 如果n小于10或者大于30，直接返回0，因为不可能有符合条件的组合
+     if (n < 10 || n > 30)
+     {
+          cout << "0";
+          return 0;
+     }
+
+     // 从第一个配料开始进行深度优先搜索
+     dfs(1, 0);
+
+     // 输出结果
+     cout << res << endl;  // 输出方案总数
+     for (int i = 1; i <= res; i++)  // 输出每种方案
+     {
+          for (int j = 1; j <= 10; j++)
+               cout << out[i][j] << " ";
+          cout << endl;
+     }
+}
+
+/*
+#include <bits/stdc++.h>
+using namespace std;
+
+int n, res = 0;
+int arr[12]; // 存方案
+int out[52000][10];
+
+void dfs(int x, int sum) //x表示当前位置
+{
+     if (sum > n) return; //如果目前累计大于n直接返回
+     if (x > 10) //遍历结束
+     {
+          if (sum == n)
+          {
+               res++; //结果
+               for (int i = 1; i <= 10; i++) out[res][i] = arr[i]; //输出方案中的所有数字
+          }
+          return;
+     }
+     for (int i = 1; i <= 3; i++)
+     {
+          arr[x] = i;
+          dfs(x + 1, sum + i); //遍历下一个位置
+          arr[x] = 0;
+     }
+}
+
+int main()
+{
+     cin >> n;
+     if (n < 10 || n > 30)
+     {
+          cout << "0";
+          return 0;
+     }
+     dfs(1, 0);
+     cout << res << endl;
+     for (int i = 1; i <= res; i++)
+     {
+          for (int j = 1; j <= 10; j++)
+               cout << out[i][j] << " ";
+          cout << endl;
+     }
+}
+
+ */
 /*
 # 烤鸡
 
@@ -51,47 +151,3 @@
 
 对于 $100\%$ 的数据，$n \leq 5000$。
  */
-#include <bits/stdc++.h>
-using namespace std;
-
-int n, res = 0;
-int arr[12]; // 存方案
-int out[52000][10];
-
-void dfs(int x, int sum) //x表示当前位置
-{
-     if (sum > n) return; //如果目前累计大于n直接返回
-     if (x > 10) //遍历结束
-     {
-          if (sum == n)
-          {
-               res++; //结果
-               for (int i = 1; i <= 10; i++) out[res][i] = arr[i]; //输出方案中的所有数字
-          }
-          return;
-     }
-     for (int i = 1; i <= 3; i++)
-     {
-          arr[x] = i;
-          dfs(x + 1, sum + i); //遍历下一个位置
-          arr[x] = 0;
-     }
-}
-
-int main()
-{
-     cin >> n;
-     if (n < 10 || n > 30)
-     {
-          cout << "0";
-          return 0;
-     }
-     dfs(1, 0);
-     cout << res << endl;
-     for (int i = 1; i <= res; i++)
-     {
-          for (int j = 1; j <= 10; j++)
-               cout << out[i][j] << " ";
-          cout << endl;
-     }
-}

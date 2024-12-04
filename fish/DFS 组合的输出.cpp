@@ -1,3 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int n, r;
+const int N = 20;
+int arr[N];
+
+void dfs(int x, int start) {
+    if (x > r) {  // 如果已选择了 r 个数，打印组合
+        for (int i = 1; i <= r; i++) printf("%3d", arr[i]);
+        cout << endl;
+        return;
+    }
+    for (int i = start; i <= n; i++) {  // 从 start 开始，尝试选择数字
+        arr[x] = i;  // 选择第 x 个位置的数字
+        dfs(x + 1, i + 1);  // 递归选择下一个数字，确保递增
+        arr[x] = 0;  // 撤销选择（虽然这里不需要，但为了理解递归流程）
+    }
+}
+
+int main() {
+    cin >> n >> r;  // 输入 n 和 r
+    dfs(1, 1);  // 从第一位置开始尝试选择
+    return 0;
+}
+
 /*
 # 组合的输出
 
@@ -50,33 +76,3 @@ cout << setw(3) << x;
   3  4  5
 ```
  */
-
-#include <bits/stdc++.h>
-using namespace std;
-int n, r;
-const int N = 20;
-bool st[N];
-int arr[N];
-
-void dfs(int x, int start)
-{
-    if (x > r)
-    {
-        for (int i = 1; i <= r; i++) printf("%3d", arr[i]);
-        cout << endl;
-        return;
-    }
-    for (int i = start; i <= n; i++)
-    {
-        arr[x] = i;
-        dfs(x + 1, i + 1);
-        arr[x] = 0;
-    }
-}
-
-
-int main()
-{
-    cin >> n >> r;
-    dfs(1, 1);
-}
