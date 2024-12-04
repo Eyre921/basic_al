@@ -1,13 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-int suan[12], ku[12];
-int st[20]; //0 不知道，1选，2不选
+const int N = 15;
+int suan[N], ku[N],st[N];
+//st[N] 0 不知道，1选，2不选
 int n, res = 0, ans = 1e9;
 
 void dfs(int x, int s, int k)
 {
-    if (x > n)
+    if (x > n) //遍历到终点
     {
         if (k == 0) return; //如果没有加则苦度为0
         res = abs(s - k);
