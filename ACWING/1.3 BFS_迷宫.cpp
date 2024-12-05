@@ -14,6 +14,8 @@ vector<int> dx = {-1,1,0,0}, dy = {0,0,1,-1};
 int bfs(){
     queue<pair<int,int>> q;
     q.push({0,0});
+
+
     visited[0][0] = 0;
     while(!q.empty())
     {

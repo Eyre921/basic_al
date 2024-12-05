@@ -49,7 +49,7 @@ int main() {
 
     // 如果没有岛屿
     if (s.empty()) {
-        cout << 0 << endl;
+        cout << "0" << endl;
     } else {
         // 按面积倒序排列
         sort(s.begin(), s.end(), greater<int>());
