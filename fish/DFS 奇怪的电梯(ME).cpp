@@ -58,7 +58,7 @@ int main()
         scanf("%d", &K[i]), steps[i] = 1e9, st[i] = 0;
 
     // 从起始楼层a开始，执行深度优先搜索
-    dfs(a, -1);
+    dfs(a,0);
 
     // 如果目标楼层b可以到达，输出最少的按键次数
     if (st[b] == 1)
@@ -215,7 +215,7 @@ int main()
         return 0;
     }
     for (int i = 1; i <= n; i++) scanf("%d", &K[i]), steps[i] = 1e9, st[i] = 0;
-    dfs(a, -1);
+    dfs(a, 0);
     if (st[b] == 1) //如果可以到b
     {
         cout << ans;

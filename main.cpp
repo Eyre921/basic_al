@@ -1,47 +1,80 @@
 #include <iostream>
 #include <string.h>
+#include <string>
 using namespace std;
-int n, m, a, b;
-const int N = 510;
-int dis[N][N];
-int dx[4] = {-1, 0, 1, 0}, dy[4] = {0, 1, 0, -1};
-pair<int, int> q[N * N];
-int hh = 0, tt = -1;
+typedef pair<int, int> PII;
+int m, n;
+const int N = 505;
+int high[N][N], flag[N][N];
+bool st[N][N];
+PII q[N * N + 10];
+int cnt_flat = 0;
+int dx[4] = {0, 0, 1, -1}, dy[4] = {1, -1, 0, 0};
+int x1, y1;
 
-void bfs()
+bool check(int mid)
 {
+    q[0] = {x1, y1};
+    st[x1][y1] = true;
+    int hh = 0, tt = 0;
+    int cnt = 1;
     while (hh <= tt)
     {
-        auto cur = q[hh++];
-        int x = cur.first, y = cur.second;
+        auto t = q[hh++];
         for (int i = 0; i < 4; i++)
         {
-            int nx = x + dx[i], ny = y + dy[i];
-            if (nx > n || ny > m || nx < 1 || ny < 1) continue;
-            if (dis[nx][ny] != -1)continue;
-            dis[nx][ny] = dis[x][y] + 1;
-            q[++tt] = make_pair(nx, ny);
+            int a = t.first + dx[i], b = t.second + dy[i];
+            if (a < 1 || a > n || b < 1 || b > m) continue;
+            if (st[a][b]) continue;
+            if (abs(high[a][b] - high[t.first][t.second]) > mid) continue;
+            st[a][b] = true;
+            q[++tt] = make_pair(a, b);
+            if (flag[a][b] == 1)
+            {
+                cnt++;
+                if (cnt_flat == cnt) return true;
+            }
         }
     }
+    return false;
 }
-
 
 int main()
 {
-    scanf("%d %d %d %d", &n, &m, &a, &b);
-    memset(dis, -1, sizeof(dis));
-    while (a--)
+    cin >> n >> m;
+    // 读入棋盘
+    for (int i = 1; i <= n; i++)
+        for (int j = 1; j <= m; j++) scanf("%d", &high[i][j]);
+    // 读入flag
+    for (int i = 1; i <= n; i++)
+        for (int j = 1; j <= m; j++)
+        {
+            scanf("%d", &flag[i][j]);
+            if (flag[i][j] == 1)
+            {
+                cnt_flat++;
+            }
+        }
+
+    for (int i = 1; i <= n; i++)
+        for (int j = 1; j <= m; j++)
+        {
+            if (flag[i][j] == 1)
+            {
+                x1 = i, y1 = j;
+                break;
+            }
+        }
+    int l = -1, r = 1e9 + 10;
+    while (l + 1 < r)
     {
-        int x, y;
-        scanf("%d %d", &x, &y);
-        dis[x][y] = 0;
-        q[++tt] = {x, y};
+        int mid = l + r >> 1;
+        memset(q, 0, sizeof(q));
+        memset(st, false, sizeof(st));
+        if (check(mid))
+        {
+            r = mid;
+        } else l = mid;
     }
-    bfs();
-    while (b--)
-    {
-        int x, y;
-        scanf("%d %d", &x, &y);
-        cout << dis[x][y] << endl;
-    }
+    cout << r << endl;
 }
