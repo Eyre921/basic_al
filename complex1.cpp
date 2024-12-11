@@ -1,74 +1,67 @@
 #include <iostream>
 using namespace std;
-
-class Complex
-{
+ 
+class Complex {
 private:
     double real;
     double imag;
-
+ 
 public:
-    // æž„é€ å‡½æ•°
+    // ¹¹Ôìº¯Êý
     Complex(double r = 0, double i = 0) : real(r), imag(i) {}
-
-    // èŽ·å–å®žéƒ¨å’Œè™šéƒ¨
+ 
+    // »ñÈ¡Êµ²¿ºÍÐé²¿
     double getReal() const { return real; }
     double getImag() const { return imag; }
-
-    // å¤æ•°åŠ æ³•
-    Complex add(const Complex &other) const
-    {
+ 
+    // ¸´Êý¼Ó·¨ 
+    Complex add(const Complex& other) const {
         return Complex(real + other.real, imag + other.imag);
     }
-
-    // å¤æ•°å‡æ³•
-    Complex sub(const Complex &other) const
-    {
+ 
+    // ¸´Êý¼õ·¨ 
+    Complex sub(const Complex& other) const {
         return Complex(real - other.real, imag - other.imag);
     }
-
-    // å¤æ•°ä¹˜æ³•
-    Complex mul(const Complex &other) const
-    {
+ 
+    // ¸´Êý³Ë·¨
+    Complex mul(const Complex& other) const {
         return Complex(real * other.real - imag * other.imag, real * other.imag + imag * other.real);
     }
-
-    // è¾“å…¥
-    void input()
-    {
+ 
+    // ÊäÈë
+    void input() {
         cin >> real >> imag;
     }
-
-    // è¾“å‡º
-    void output()
-    {
+ 
+    // Êä³ö
+   void output() {
         cout << real << " + " << imag << "i";
-    }
+   }
 };
-
-int main()
-{
+ 
+int main() {
     Complex c1, c2, c3;
-
-    c1.input();
-    c2.input();
-
-
+ 
+   c1.input();
+   c2.input(); 
+ 
+    
     c3 = c1.add(c2);
-    cout << "Sum: ";
+    cout << "Sum: " ;
     c3.output();
-    cout << endl;
-
+    cout<<endl;
+ 
     c3 = c1.sub(c2);
-    cout << "Difference: ";
+    cout << "Difference: " ;
     c3.output();
-    cout << endl;
-
+    cout<<endl;
+    
     c3 = c1.mul(c2);
     cout << "Product: ";
     c3.output();
-    cout << endl;
-
+    cout<<endl;
+    
     return 0;
 }
 
