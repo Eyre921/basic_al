@@ -1,64 +1,50 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
+int check(int a) {}
+
+int b1(int l, int r) //mid在分界线左边
+{
+    while (l < r)
+    {
+        int mid = l + r >> 1;
+        if (check(mid)) r = mid;
+        else l = mid + 1;
+    }
+    return l;
+}
+
+int b2(int l, int r) //mid在分界线右边
+{
+    while (l < r)
+    {
+        int mid = l + r + 1 >> 1;
+        if (check(mid)) l = mid;
+        else r = mid - 1;
+    }
+    return l;
+}
+
+double b3(double l, double r)
+{
+    double x;
+    for (int i = 1; i <= 100; i++)
+    {
+        double mid = (l + r) / 2;
+        if (mid * mid >= x) r = mid;
+        else l = mid;
+    }
+    return l;
+}
 
 int main()
 {
-    int n;
-    cin >> n; // 输入导弹数量
-
-    vector<int> h(n + 1); // 存储导弹高度，索引从1开始
-    for (int i = 1; i <= n; i++)
+    string s = "hello world";
+    stringstream ss(s);
+    unordered_set<string> words;
+    string word;
+    while (ss >> word)
     {
-        cin >> h[i]; // 输入每个导弹的高度
+        words.insert(word);
     }
-
-    // dp[i] 表示从第 i 发导弹开始，最多能拦截的导弹数
-    vector<int> dp(n + 1, 0); // 初始化 dp 数组，所有值默认为 0
-    int max1 = 0;
-    for (int i = n; i >= 1; i--)
-    {
-        dp[i] = 1;
-        max1 = max(max1, dp[i]);
-        for (int j = i + 1; j <= n; j++)
-        {
-            if (h[i] >= h[j])
-            {
-                dp[i] = max(dp[i], dp[j] + 1);
-                max1 = max(max1, dp[i]);
-            }
-        }
-    }
-
-    // 输出从第一发导弹开始最多能拦截的导弹数
-    cout << max1 << endl;
-
-    return 0;
+    for (auto it: words) cout << it << " ";
 }
-
-/*
-【问题描述】
-
-某国为了防御敌国的导弹袭击，开发出一种导弹拦截系统。但是这种导弹拦截系统有一个缺陷：虽然它的第一发炮弹能够到达任意的高度，但是以后每一发炮弹都不能高于前一发的高度。某天，雷达捕捉到敌国的导弹来袭，并观测到导弹依次飞来的高度，请计算这套系统最多能拦截多少导弹。拦截来袭导弹时，必须按来袭导弹袭击的时间顺序，不允许先拦截后面的导弹，再拦截前面的导弹。
-
-【输入形式】
-
-每组输入有两行，
-
-第一行，输入雷达捕捉到的敌国导弹的数量k（k<=25），
-
-第二行，输入k个正整数，表示k枚导弹的高度，按来袭导弹的袭击时间顺序给出，以空格分隔。
-
-【输出形式】
-
-每组输出只有一行，包含一个整数，表示最多能拦截多少枚导弹。
-
-【样例输入】
-
-8
-300 207 155 300 299 170 158 65
-【样例输出】
-
-6
- */

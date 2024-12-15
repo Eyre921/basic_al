@@ -16,11 +16,10 @@ int main()
 
     // dp[i] 表示从第 i 发导弹开始，最多能拦截的导弹数
     vector<int> dp(n + 1, 0); // 初始化 dp 数组，所有值默认为 0
-    int max1 = 0;
+    int max1 = 1;
     for (int i = n; i >= 1; i--)
     {
         dp[i] = 1;
-        max1 = max(max1, dp[i]);
         for (int j = i + 1; j <= n; j++)
         {
             if (h[i] >= h[j])

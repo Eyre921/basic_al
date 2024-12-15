@@ -15,7 +15,7 @@ int main()
     {
         for (int j = 1; j <= i; j++)
         {
-            f[i][j] = g[i][j] + max(f[i + 1][j], f[i][j + 1]);
+            f[i][j] = g[i][j] + max(f[i - 1][j], f[i-1][j + 1]);
         }
     }
     printf("%d\n", f[1][1]);
